@@ -1,0 +1,87 @@
+//always unlock compact-ui
+SET searchlength = 0
+SET replacelength = 7
+SPRINT replacepattern ~1234567~
+SPRINT replacebytes ~E8 CC 66 15 00 74 05~
+LAUNCH_PATCH_MACRO Q_Pattern_Maker
+WRITE_EVALUATED_ASCII 0x11FF "%replacepattern%" (%replacelength%)
+
+//health and fatigue bars pos:
+WRITE_LONG 0x1CA1C8 (Width - 49) //x
+WRITE_LONG 0x1CA1CC (Height - 102) //y
+
+//quick slots bar pos:
+WRITE_LONG 0x149FE9 (WidthBonus + 196) //x
+WRITE_LONG 0x149FF1 (Height - 37) //y
+
+//quick slots bar art pos fixes:
+WRITE_SHORT 0x17D974 0xBA90
+WRITE_LONG 0x17D976 198
+WRITE_LONG 0x17D9C2 0
+
+//quick slots bar mouse on check:
+WRITE_LONG 0x17E48B (Height - 37) //y
+
+//follower portraits hide button pos:
+WRITE_LONG 0x1CA424 (Height - 13) //y
+
+//follower portraits scroll up button pos:
+WRITE_LONG 0x1CA434 (Height - 26) //y
+
+//follower portraits scroll down button pos:
+WRITE_LONG 0x1CA444 (Height - 26) //y
+
+//description window pos:
+WRITE_LONG 0x1CA1A0 (WidthBonus + 210) //x
+WRITE_LONG 0x1CA1A4 (Height - 121) //y
+
+//combat gauge pos:
+WRITE_LONG 0x1CAA20 (WidthBonus + 617) //x
+WRITE_LONG 0x1CAA24 (Height - 23) //y
+
+//Normal UI while in Compact-UI mode
+
+//draw area:
+WRITE_LONG 0x157990 0
+WRITE_LONG 0x157A1F Height
+
+//mini qs bar switch off check fix:
+SET searchlength = 0
+SET replacelength = 7
+SPRINT replacepattern ~1234567~
+SPRINT replacebytes ~A1 7C C6 64 00 85 C0~
+LAUNCH_PATCH_MACRO Q_Pattern_Maker
+WRITE_EVALUATED_ASCII 0x149F91 "%replacepattern%" (%replacelength%)
+
+//last action buttons fix:
+WRITE_BYTE 0x17D810 0xC3
+
+//follower ui:
+PATCH_IF (WidthBonus >= 67)
+BEGIN
+
+//follower portraits hide button pos:
+WRITE_LONG 0x1CA3F4 (Height - 13) //y
+
+//follower portraits scroll up button pos:
+WRITE_LONG 0x1CA404 (Height - 26) //y
+
+//follower portraits scroll down button pos:
+WRITE_LONG 0x1CA414 (Height - 26) //y
+
+END
+ELSE BEGIN
+
+//follower portraits hide button pos:
+WRITE_LONG 0x1CA3F0 WidthBonus //x
+WRITE_LONG 0x1CA3F4 (Height - 172) //y
+
+//follower portraits scroll up button pos:
+WRITE_LONG 0x1CA400 WidthBonus //x
+WRITE_LONG 0x1CA404 (Height - 185) //y
+
+//follower portraits scroll down button pos:
+WRITE_LONG 0x1CA410 (WidthBonus + 33) //x
+WRITE_LONG 0x1CA414 (Height - 185) //y
+
+END

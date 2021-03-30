@@ -1,0 +1,134 @@
+//skill menu pos:
+WRITE_LONG 0x15BB07 (WidthBonus + 503) //x
+WRITE_LONG 0x15BB0F (HeightBonus + 104) //y
+
+//tech menu pos:
+WRITE_LONG 0x15C16C (WidthBonus + 503) //x
+WRITE_LONG 0x15C174 (HeightBonus + 104) //y
+
+//spell menu pos:
+WRITE_LONG 0x15C8EC (WidthBonus + 503) //x
+WRITE_LONG 0x15C8F4 (HeightBonus + 104) //y
+
+//autolevel scheme menu pos:
+WRITE_LONG 0x15D0B9 (WidthBonus + 503) //x
+WRITE_LONG 0x15D0C1 (HeightBonus + 104) //y
+
+//autolevel scheme menu mouse area fix:
+SET searchlength = 0
+SET replacelength = 72
+SPRINT replacepattern ~123456789012345678901234567890123456789012345678901234567890123456789012~
+SPRINT replacebytes ~67 02 00 00 81 EA BC 00 00 00 57 50 89 4C 24 3C 89 54 24 40 C7 44 24 48 A0 00 00 00 C7 44 24 4C 10 00 00 00 E8 61 A9 FD FF 83 C6 10 83 C4 08 83 C7 04 81 FE 48 8F 5C 00 7C BB 5E B8 01 00 00 00 5F 81 C4 94 00 00 00 C3~
+LAUNCH_PATCH_MACRO Q_Pattern_Maker
+WRITE_EVALUATED_ASCII 0x15D1C6 "%replacepattern%" (%replacelength%)
+
+//autolevel scheme menu mouse area:
+WRITE_LONG 0x15D1C6 (WidthBonus + 503) //x
+WRITE_LONG 0x15D1CC (HeightBonus + 104) //y
+
+//stats #1:
+PatchPointer = 0x1C7EA0
+PatchTimes = 9
+WHILE (PatchTimes >= 0) BEGIN
+READ_LONG (PatchPointer + 24*PatchTimes) PatchX
+WRITE_LONG (PatchPointer + 24*PatchTimes) (PatchX - WidthBonus)
+READ_LONG (PatchPointer + 24*PatchTimes + 4) PatchY
+WRITE_LONG (PatchPointer + 24*PatchTimes + 4) (HeightBonus + PatchY)
+PatchTimes = PatchTimes - 1
+END
+
+//stats #2:
+PatchPointer = 0x1C8154
+PatchTimes = 21
+WHILE (PatchTimes >= 0) BEGIN
+READ_LONG (PatchPointer + 16*PatchTimes) PatchX
+PATCH_IF (PatchX < 0) BEGIN
+WRITE_LONG (PatchPointer + 16*PatchTimes) (PatchX - WidthBonus) END
+ELSE BEGIN
+WRITE_LONG (PatchPointer + 16*PatchTimes) (WidthBonus + PatchX) END
+READ_LONG (PatchPointer + 16*PatchTimes + 4) PatchY
+WRITE_LONG (PatchPointer + 16*PatchTimes + 4) (HeightBonus + PatchY)
+PatchTimes = PatchTimes - 1
+END
+
+//skills:
+PatchPointer = 0x1C82F4
+PatchTimes = 15
+WHILE (PatchTimes >= 0) BEGIN
+READ_LONG (PatchPointer + 16*PatchTimes) PatchX
+WRITE_LONG (PatchPointer + 16*PatchTimes) (WidthBonus + PatchX)
+READ_LONG (PatchPointer + 16*PatchTimes + 4) PatchY
+WRITE_LONG (PatchPointer + 16*PatchTimes + 4) (HeightBonus + PatchY)
+PatchTimes = PatchTimes - 1
+END
+
+//spells:
+PatchPointer = 0x1C8734
+PatchTimes = 9
+WHILE (PatchTimes >= 0) BEGIN
+READ_LONG (PatchPointer + 16*PatchTimes) PatchX
+WRITE_LONG (PatchPointer + 16*PatchTimes) (WidthBonus + PatchX)
+READ_LONG (PatchPointer + 16*PatchTimes + 4) PatchY
+WRITE_LONG (PatchPointer + 16*PatchTimes + 4) (HeightBonus + PatchY)
+PatchTimes = PatchTimes - 1
+END
+
+//technology:
+PatchPointer = 0x1C8854
+PatchTimes = 13
+WHILE (PatchTimes >= 0) BEGIN
+READ_LONG (PatchPointer + 16*PatchTimes) PatchX
+WRITE_LONG (PatchPointer + 16*PatchTimes) (WidthBonus + PatchX)
+READ_LONG (PatchPointer + 16*PatchTimes + 4) PatchY
+WRITE_LONG (PatchPointer + 16*PatchTimes + 4) (HeightBonus + PatchY)
+PatchTimes = PatchTimes - 1
+END
+
+//tech degree:
+//icon:
+WRITE_LONG 0x1C8FCC (WidthBonus + 520) //x
+WRITE_LONG 0x1C8FD0 (HeightBonus + 174) //y
+//text:
+WRITE_LONG 0x1C8FDC (0 - (WidthBonus + 621)) //x
+WRITE_LONG 0x1C8FE0 (HeightBonus + 173) //y
+//number:
+WRITE_LONG 0x1C8FEC (WidthBonus + 707) //x
+WRITE_LONG 0x1C8FF0 (HeightBonus + 176) //y
+
+//alignment:
+WRITE_LONG 0x1C8944 (0 - (WidthBonus + 57)) //x
+WRITE_LONG 0x1C8948 (HeightBonus + 239) //y
+
+//m/t meter - magick:
+WRITE_LONG 0x1C8954 (0 - (WidthBonus + 767)) //x
+WRITE_LONG 0x1C8958 (HeightBonus + 107) //y
+
+//m/t meter - tech:
+WRITE_LONG 0x1C8964 (0 - (WidthBonus + 767)) //x
+WRITE_LONG 0x1C8968 (HeightBonus + 406) //y
+
+//current autolevel scheme name:
+WRITE_LONG 0x1C8E44 (0 - (WidthBonus + 620)) //x
+WRITE_LONG 0x1C8E48 (HeightBonus + 125) //y
+
+//autolevel scheme names:
+PatchPointer = 0x1C8E54
+PatchTimes = 14
+WHILE (PatchTimes >= 0) BEGIN
+READ_LONG (PatchPointer + 16*PatchTimes) PatchX
+WRITE_LONG (PatchPointer + 16*PatchTimes) (WidthBonus + PatchX)
+READ_LONG (PatchPointer + 16*PatchTimes + 4) PatchY
+WRITE_LONG (PatchPointer + 16*PatchTimes + 4) (HeightBonus + PatchY)
+PatchTimes = PatchTimes - 1
+END
+
+//export char pop up:
+WRITE_LONG 0x17D109 (WidthBonus + 237) //x
+WRITE_LONG 0x17D111 (HeightBonus2 + 232) //y
+
+//confirm overwrite char pop up
+WRITE_LONG 0x17D1F8 (WidthBonus + 237) //x
+WRITE_LONG 0x17D200 (HeightBonus2 + 232) //y
+
+//lens art fix:
+WRITE_BYTE 0x159DE9 0xDE

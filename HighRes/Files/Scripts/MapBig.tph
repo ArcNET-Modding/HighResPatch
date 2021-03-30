@@ -1,0 +1,101 @@
+MapArt = 164
+MapWidth = 1024
+MapHeight = 568
+MapDrawWidth = 750
+MapDrawHeight = 533
+
+MapWidthBonus = (Width - MapWidth) / 2
+MapHeightBonus = (Height - 200 - MapHeight) / 2
+
+//middle screen menus pos & size:
+WRITE_LONG 0x157249 MapWidthBonus //x
+WRITE_LONG 0x157251 MapHeightBonus + 41 //y
+WRITE_LONG 0x157259 MapWidth //w
+WRITE_LONG 0x157261 MapHeight //h
+
+//in memory:
+//605BC0 x
+//605BC4 y
+//605BC8 w
+//605BCC h
+
+//map ui art num:
+WRITE_LONG 0x161165 MapArt //138
+
+//map ui art size:
+WRITE_LONG 0x1C9B10 MapWidth
+WRITE_LONG 0x1C9B14 MapHeight
+
+//nav button cover:
+//normal:
+WRITE_LONG 0x1C9B38 409 //x
+WRITE_LONG 0x15FE87 550 //y
+//zoomed:
+WRITE_LONG 0x165680 409 //x
+WRITE_LONG 0x16564D 550 //y
+
+//nav button:
+WRITE_LONG 0x1C9B70 490 //x
+WRITE_LONG 0x1C9B74 556 //y
+
+//nav button scrolling:
+WRITE_LONG 0x1C9A88 MapWidthBonus + 490 + 16 //x
+WRITE_LONG 0x1C9A8C MapHeightBonus + 556 + 15 //y
+
+//go button:
+WRITE_LONG 0x1C9B80 922 //x
+WRITE_LONG 0x1C9B84 521 //y
+
+//coordinates
+WRITE_LONG 0x1C9A98 931 //x
+WRITE_LONG 0x1C9AA8 931 //x
+
+//world map draw area:
+WRITE_LONG 0x1C922C 137 //x
+WRITE_LONG 0x1C9230 11 //y
+WRITE_LONG 0x1C9234 MapDrawWidth //w
+WRITE_LONG 0x1C9238 MapDrawHeight //h
+
+//world map mouse area:
+WRITE_LONG 0x1C923C (MapWidthBonus + 137) //x
+WRITE_LONG 0x1C9240 (MapHeightBonus + 52) //y
+WRITE_LONG 0x1C9244 MapDrawWidth //w
+WRITE_LONG 0x1C9248 MapDrawHeight //h
+
+//world map zoomed draw area:
+WRITE_LONG 0x1C9A68 137 //x
+WRITE_LONG 0x1C9A6C 52 //y
+WRITE_LONG 0x1C9A70 MapDrawWidth //w
+WRITE_LONG 0x1C9A74 MapDrawHeight //h
+
+//world map zoomed art area:
+WRITE_LONG 0x1C94EC 246 //x
+WRITE_LONG 0x1C94F0 52 //y
+WRITE_LONG 0x1C94F4 MapDrawHeight //w
+WRITE_LONG 0x1C94F8 MapDrawHeight //h
+
+//world map zoomed mouse area:
+WRITE_LONG 0x1C94FC MapWidthBonus + 246 //x
+WRITE_LONG 0x1C9500 MapHeightBonus + 52 //y
+WRITE_LONG 0x1C9504 MapDrawHeight //w
+WRITE_LONG 0x1C9508 MapDrawHeight //h
+
+//townmap draw area:
+WRITE_LONG 0x1C97AC 137 //x
+WRITE_LONG 0x1C97B0 11 //y
+WRITE_LONG 0x1C97B4 MapDrawWidth //w
+WRITE_LONG 0x1C97B8 MapDrawHeight //h
+
+//town map mouse area:
+WRITE_LONG 0x1C97BC (MapWidthBonus + 137) //x
+WRITE_LONG 0x1C97C0 (MapHeightBonus + 52) //y
+WRITE_LONG 0x1C97C4 MapDrawWidth //w
+WRITE_LONG 0x1C97C8 MapDrawHeight //h
+
+//world map waypoints:
+WRITE_LONG 0x163AE3 MapWidthBonus //x
+WRITE_LONG 0x163AF6 (MapHeightBonus + 41) //y
+
+//townmap waypoints:
+WRITE_LONG 0x163C23 MapWidthBonus //x
+WRITE_LONG 0x163C36 (MapHeightBonus + 41) //y

@@ -1,0 +1,87 @@
+INCLUDE ~Files/Scripts/Q_EnginePatcher.tph~
+
+COPY ~../Arcanum.exe~ ~../Arcanum.exe~
+
+PATCH_INCLUDE ~Files/Scripts/config_default.ini~
+PATCH_INCLUDE ~config.ini~
+
+PATCH_IF (Width < 800) BEGIN
+Width = 800 END
+
+PATCH_IF (Height < 600) BEGIN
+Height = 600 END
+
+WidthBonus = (Width - 800) / 2
+
+PATCH_IF (MenuPosition = 0) BEGIN
+HeightBonus = 0 END
+
+PATCH_IF (MenuPosition = 1) BEGIN
+HeightBonus = (Height - 600) / 2 END
+
+PATCH_IF (MenuPosition = 2) BEGIN
+HeightBonus = (Height - 600) END
+
+HeightBonus2 = (Height - 600) / 2
+
+//General:
+
+//resolution:
+WRITE_LONG 0x1236 Width
+WRITE_LONG 0x123E Height
+
+//mouse scrolling:
+WRITE_LONG 0x1FA2 (Width - 1) //right border
+WRITE_LONG 0x1FBF (Height - 1) //right corner
+WRITE_LONG 0x1F7F (Height - 1) //lower left corner
+WRITE_LONG 0x1FF3 (Height - 1) //bottom border
+
+//player pos (when loading the game the first time):
+WRITE_LONG 0x1573 (Height / 2) //y
+WRITE_LONG 0x1579 (Width / 2) //x
+
+//draw area:
+WRITE_LONG 0x15783C 0 //starting point (y)
+WRITE_LONG 0x157844 Height //ending point (y)
+
+//preloading limit in tiles:
+WRITE_BYTE 0xAD4B8 PreloadLimit
+
+//broadcast commands limit in tiles:
+WRITE_BYTE 0xc339e BroadcastLimit
+
+//middlescreen menus pos:
+WRITE_LONG 0x157249 WidthBonus //x
+WRITE_LONG 0x157251 (HeightBonus + 41) //y
+
+//lens view pos:
+WRITE_LONG 0x1C63B0 (Width / 2 - 89) //x
+WRITE_LONG 0x1C63B4 (Height / 2 - 104) //y
+
+PATCH_INCLUDE ~Files/Scripts/MainMenu.tph~
+PATCH_INCLUDE ~Files/Scripts/CompactUI.tph~
+PATCH_INCLUDE ~Files/Scripts/FollowerUI.tph~
+PATCH_INCLUDE ~Files/Scripts/IntTop.tph~
+PATCH_INCLUDE ~Files/Scripts/IntBottom.tph~
+PATCH_INCLUDE ~Files/Scripts/CharEdit.tph~
+PATCH_INCLUDE ~Files/Scripts/Written.tph~
+PATCH_INCLUDE ~Files/Scripts/Map.tph~
+PATCH_INCLUDE ~Files/Scripts/Inventory.tph~
+PATCH_INCLUDE ~Files/Scripts/Dialog.tph~
+PATCH_INCLUDE ~Files/Scripts/Slides.tph~
+PATCH_INCLUDE ~Files/Scripts/Splash.tph~
+PATCH_INCLUDE ~Files/Scripts/Multiplayer.tph~
+PATCH_INCLUDE ~Files/Scripts/VicinityChecks.tph~
+PATCH_INCLUDE ~Files/Scripts/Misc.tph~
+
+//sound positioning fixes
+
+WRITE_LONG 0x1AB35 (Height / 2)
+WRITE_LONG 0x1AB3B (Width / 2)
+
+//setting default sound parameters
+WRITE_LONG 0x1AB5E (Width / 16) //50, full
+WRITE_LONG 0x1AB59 Width //800, zero
+WRITE_LONG 0x1AB54 (Width / 8) //100, centered
+WRITE_LONG 0x1AB4F (Width / 2) //400, hard
+

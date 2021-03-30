@@ -1,0 +1,218 @@
+//Character Create/Save/Load Menu
+
+//save/load menu height fix:
+WRITE_SHORT 0x1C3654 400
+
+//top panel art pos fixes:
+WRITE_BYTE 0x1466C2 0x54
+WRITE_BYTE 0x1466C4 0x20
+WRITE_BYTE 0x1466DF 0x4C
+WRITE_BYTE 0x1466E1 0x30
+
+//top panel pos:
+WRITE_LONG 0x1C3660 WidthBonus //x
+
+//middle menu pos:
+WRITE_LONG 0x1C3648 WidthBonus //x
+WRITE_LONG 0x1C364C (HeightBonus + 41) //y
+
+//bottom panel:
+//middle part pos:
+WRITE_LONG 0x1C3680 (WidthBonus + 200) //x
+WRITE_LONG 0x1C3684 (Height - 159) //y
+//left part pos:
+WRITE_LONG 0x1C3690 WidthBonus //x
+WRITE_LONG 0x1C3694 (Height - 159) //y
+//left part pos check:
+WRITE_LONG 0x1468D3 (Height - 159) //y
+//right part pos:
+WRITE_LONG 0x1C36A0 (WidthBonus + 600) //x
+WRITE_LONG 0x1C36A4 (Height - 159) //y
+//right part pos check:
+WRITE_LONG 0x146250 (Height - 159) //y
+
+//left button pos:
+WRITE_LONG 0x1C4578 (WidthBonus + 69) //x
+WRITE_LONG 0x1C47D8 (WidthBonus + 69) //x
+WRITE_LONG 0x1C4C78 (WidthBonus + 69) //x
+WRITE_LONG 0x1C51E0 (WidthBonus + 69) //x
+WRITE_LONG 0x1C5340 (WidthBonus + 69) //x
+WRITE_LONG 0x1C5438 (WidthBonus + 69) //x
+
+//right button pos:
+WRITE_LONG 0x1C4548 (WidthBonus + 675) //x
+WRITE_LONG 0x1C47A8 (WidthBonus + 675) //x
+WRITE_LONG 0x1C4C48 (WidthBonus + 675) //x
+WRITE_LONG 0x1C51B0 (WidthBonus + 675) //x
+WRITE_LONG 0x1C5310 (WidthBonus + 675) //x
+WRITE_LONG 0x1C5408 (WidthBonus + 675) //x
+
+//bottom panel art pos fix:
+SET searchlength = 0
+SET replacelength = 27
+SPRINT replacepattern ~123456789012345678901234567~
+SPRINT replacebytes ~2D 00 00 00 00 89 44 24 34 89 44 24 1C 8B 4A 04 89 6C 24 1C 89 6C 24 38 90 90 90~
+LAUNCH_PATCH_MACRO Q_Pattern_Maker
+WRITE_EVALUATED_ASCII 0x1465B0 "%replacepattern%" (%replacelength%)
+
+//bottom panel art pos offset:
+WRITE_LONG 0x1465B1 WidthBonus //x
+
+//character create menu mouse over pos:
+
+//gender:
+WRITE_LONG 0x1C4F00 (WidthBonus + 22) //x
+WRITE_LONG 0x1C4F04 (HeightBonus + 231) //y
+
+//race:
+WRITE_LONG 0x1C4F20 (WidthBonus + 22) //x
+WRITE_LONG 0x1C4F24 (HeightBonus + 281) //y
+
+//background:
+WRITE_LONG 0x1C4F40 (WidthBonus + 22) //x
+WRITE_LONG 0x1C4F44 (HeightBonus + 331) //y
+
+//Main Menu
+
+//main menu art pos fixes:
+WRITE_BYTE 0x14646D 0x54
+WRITE_BYTE 0x14646F 0x20
+WRITE_BYTE 0x14648A 0x4C
+WRITE_BYTE 0x14648C 0x30
+
+PATCH_IF (MainMenuBG = 0)
+BEGIN
+
+//main menu pos:
+WRITE_LONG 0x1C3638 WidthBonus //x
+WRITE_LONG 0x1C363C HeightBonus2 //y
+
+//main menu art:
+MMBack = 329
+
+END
+
+PATCH_IF (MainMenuBG = 1)
+BEGIN
+
+PATCH_INCLUDE ~Files/Scripts/MainMenuFS.tph~
+
+END
+
+//force all main menu bgs to the same art:
+//currently available: 329, 330, 331; HD: 158, 159, 160
+//WRITE_LONG 0x1C3D10 MMBack //??
+WRITE_LONG 0x1C3DA8 MMBack //multiplayer setup
+WRITE_LONG 0x1C4170 MMBack //main menu bg
+WRITE_LONG 0x1C4208 MMBack //in-game
+WRITE_LONG 0x1C42A0 MMBack //multiplayer in-game
+//WRITE_LONG 0x1C4338 MMBack //??
+//WRITE_LONG 0x1C4760 MMBack //??
+WRITE_LONG 0x1C4BB0 MMBack //newgame
+WRITE_LONG 0x1C4A88 MMBack //singleplayer bg
+WRITE_LONG 0x1C5500 MMBack //multiplayer bg
+
+//confirm save delete/game quit pop up:
+WRITE_LONG 0x1416D6 (WidthBonus + 237) //x
+WRITE_LONG 0x1416DE (HeightBonus2 + 232) //y
+
+PATCH_IF (Options = 1)
+BEGIN
+
+//options background art:
+WRITE_LONG 0x1C44A0 669
+
+OptionsOffset = 41
+
+//options lens y pos:
+READ_LONG 0x1C4494 PatchY
+WRITE_LONG 0x1C4494 (PatchY - OptionsOffset)
+
+//menu items y pos:
+PatchPointer = 0x1CCD58
+PatchTimes = 7
+WHILE (PatchTimes >= 0) BEGIN
+READ_LONG (PatchPointer + 4*PatchTimes) PatchY
+WRITE_LONG (PatchPointer + 4*PatchTimes) (PatchY - OptionsOffset)
+PatchTimes = PatchTimes - 1
+END
+
+//text y pos:
+PatchPointer = 0x1C43D4
+PatchTimes = 3
+WHILE (PatchTimes >= 0) BEGIN
+READ_LONG (PatchPointer + 48*PatchTimes) PatchY
+WRITE_LONG (PatchPointer + 48*PatchTimes) (PatchY - OptionsOffset)
+PatchTimes = PatchTimes - 1
+END
+
+END
+
+//text hover/buttons offset adjustment:
+WRITE_SHORT 0x14621A 0xD233
+WRITE_LONG 0x14621C 0x90909090
+
+//load menu fixes:
+//save info toggle button y pos:
+WRITE_LONG 0x1C45DC 41
+
+//save delete button y pos:
+WRITE_LONG 0x1C45AC 355
+
+//save menu fixes:
+//save info toggle button y pos:
+WRITE_LONG 0x1C483C 41
+
+//save delete button y pos:
+WRITE_LONG 0x1C480C 355
+
+//character create menu fixes:
+//scroll portrait buttons y pos:
+WRITE_LONG 0x1C4CAC 77
+WRITE_LONG 0x1C4CDC 77
+
+//scroll race buttons y pos:
+WRITE_LONG 0x1C4D0C 290
+WRITE_LONG 0x1C4D3C 291
+
+//scroll background buttons y pos:
+WRITE_LONG 0x1C4D6C 340
+WRITE_LONG 0x1C4D9C 341
+
+//scroll gender buttons y pos:
+WRITE_LONG 0x1C4DCC 240
+WRITE_LONG 0x1C4DFC 241
+
+//name entry field y pos:
+WRITE_LONG 0x1C50A4 183
+
+//character pick menu fixes:
+//scroll character buttons y pos:
+WRITE_LONG 0x1C5214 77
+WRITE_LONG 0x1C5244 77
+
+//main menu mouse over fixes:
+WRITE_SHORT 0x147210 0xE990
+WRITE_LONG 0x147212 0xFFFFD46E
+WRITE_BYTE 0x1C4954 0x3C
+
+SET searchlength = 0
+SET replacelength = 17
+SPRINT replacepattern ~12345678901234567~
+SPRINT replacebytes ~8B 56 08 81 EA 70 00 00 00 8B 5F 5C E9 81 2B 00 00~
+LAUNCH_PATCH_MACRO Q_Pattern_Maker
+WRITE_EVALUATED_ASCII 0x144684 "%replacepattern%" (%replacelength%)
+
+WRITE_LONG 0x144689 WidthBonus //x
+
+WRITE_BYTE 0x14726B 0xE9
+WRITE_LONG 0x14726C 0xFFFFF0B1
+
+SET searchlength = 0
+SET replacelength = 15
+SPRINT replacepattern ~123456789012345~
+SPRINT replacebytes ~8B 46 08 2D 70 00 00 00 2B D5 E9 40 0F 00 00~
+LAUNCH_PATCH_MACRO Q_Pattern_Maker
+WRITE_EVALUATED_ASCII 0x146321 "%replacepattern%" (%replacelength%)
+
+WRITE_LONG 0x146325 WidthBonus //x

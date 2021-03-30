@@ -1,0 +1,52 @@
+//
+// Sound Parameters file
+// 05/09/00
+//
+// BEGIN Positional audio parameters.  All numbers are in screen coordinates.
+//
+// IF you remove one or more of these parameters, default values will be supplied.
+// The current default values are indicated below.
+//
+// Controls for volume of sound versus its radius.
+//
+// Sounds closer than this are full volume (not attenuated).
+// #1 defaults to 150
+{1}{50}
+//
+// Sounds FARTHER than this are zero volume (fully attenuated).
+// #2 defaults to 800
+// NOTE: since screen width is 800, this lets you hear a half-screen
+// off the edges of the screen.
+{2}{800}
+//
+// Controls for X-position (panning) of sound versus its lateral position (X-position).
+//
+// Sounds closer than this are played centered.
+// #3 defaults to 150
+{3}{100}
+//
+// Sounds at this X-range are played HARD to that side (fully-panned).
+// #4 defaults to 400
+{4}{400}
+//
+// END Positional audio parameters.
+
+// New optional volume and radius parameters
+// These parameters define Small, Medium and Extra-large positional sounds
+// Large sounds are the default and use the values above (which assume a 100% volume,
+// even though this isn't explicitly specified above)
+
+// Small
+{10}{50}	// minimum radius (all sounds closer are at maximum volume)
+{11}{150}	// maximum radius (all sounds farther are not played)
+{12}{40}	// maximum volume (0-100%, controls the maximum volume used for sound)
+
+// Medium
+{20}{50}	// minimum radius (all sounds closer are at maximum volume)
+{21}{400}	// maximum radius (all sounds farther are not played)
+{22}{70}	// maximum volume (0-100%, controls the maximum volume used for sound)
+
+// Extra Large
+{30}{50}	// minimum radius (all sounds closer are at maximum volume)
+{31}{1500}	// maximum radius (all sounds farther are not played)
+{32}{100}	// maximum volume (0-100%, controls the maximum volume used for sound)

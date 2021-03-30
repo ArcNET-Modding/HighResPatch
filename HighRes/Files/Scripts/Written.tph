@@ -1,0 +1,65 @@
+//written ui pos:
+WRITE_LONG 0x1CA480 WidthBonus //x
+WRITE_LONG 0x1CA484 (HeightBonus + 41) //y
+
+//left arrow:
+WRITE_LONG 0x1CA4D8 (WidthBonus + 213) //x
+WRITE_LONG 0x1CA4DC (HeightBonus + 77) //y
+
+//right arrow:
+WRITE_LONG 0x1CA4E8 (WidthBonus + 675) //x
+WRITE_LONG 0x1CA4EC (HeightBonus + 77) //y
+
+//written UI height fix:
+WRITE_SHORT 0x1CA48C 400
+
+//lens art fix:
+WRITE_BYTE 0x16BD73 0xC6
+
+//logbook font size:
+
+PATCH_IF (LogbookFont = 1)
+BEGIN
+
+//font:
+WRITE_LONG 0x13EB54 230
+WRITE_LONG 0x13EBC9 230
+WRITE_LONG 0x13EC32 230
+WRITE_LONG 0x13ECA4 230
+WRITE_LONG 0x13ED10 230
+WRITE_LONG 0x13EDF0 230
+WRITE_LONG 0x13EE5C 230
+
+//section titles:
+
+//left:
+WRITE_LONG 0x1C34DC 37 //y, orig: 43
+
+//right:
+WRITE_LONG 0x1C34EC 37 //y, orig: 43
+
+//text area:
+
+//left:
+WRITE_LONG 0x1C34B8 218 //x, orig: 222
+WRITE_LONG 0x1C34BC 61 //y, orig 72
+WRITE_LONG 0x1C34C0 223 //w, orig 215
+WRITE_LONG 0x1C34C4 288 //h, orig 270
+
+//right:
+WRITE_LONG 0x1C34C8 463 //x, orig: 468
+WRITE_LONG 0x1C34CC 61 //y, orig 72
+WRITE_LONG 0x1C34D0 223 //w, orig 215
+WRITE_LONG 0x1C34D4 288 //h, orig 270
+
+//page numbers:
+
+//left:
+WRITE_LONG 0x1C34FC 349 //y, orig 346
+WRITE_LONG 0x1C3504 16 //h, orig 15
+
+//right:
+WRITE_LONG 0x1C350C 349 //y, orig 346
+WRITE_LONG 0x1C3514 16 //h, orig 15
+
+END

@@ -1,0 +1,20 @@
+//splash screen fixes:
+WRITE_BYTE 0x217A 0x88
+
+WRITE_SHORT 0x4806 0x05C7
+WRITE_LONG 0x4808 0x604780
+WRITE_LONG 0x480C WidthBonus
+
+SET searchlength = 0
+SET replacelength = 12
+SPRINT replacepattern ~123456789012~
+SPRINT replacebytes ~31 C0 A3 80 47 60 00 E9 08 01 00 00~
+LAUNCH_PATCH_MACRO Q_Pattern_Maker
+WRITE_EVALUATED_ASCII 0x146DC1 "%replacepattern%" (%replacelength%)
+
+SET searchlength = 0
+SET replacelength = 11
+SPRINT replacepattern ~12345678901~
+SPRINT replacebytes ~E8 06 0A 01 00 E8 01 0A 01 00 C3~
+LAUNCH_PATCH_MACRO Q_Pattern_Maker
+WRITE_EVALUATED_ASCII 0x146ED5 "%replacepattern%" (%replacelength%)

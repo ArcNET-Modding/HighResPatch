@@ -1,0 +1,58 @@
+//sprite mirroring:
+WRITE_BYTE 0x1BEA14 SpriteMirroring
+
+//windowed mode:
+PATCH_IF (Windowed = 1)
+BEGIN
+WRITE_BYTE 0x12411C 0
+WRITE_BYTE 0x12439C 0
+END
+
+//renderer:
+PATCH_IF (Renderer = 0)
+BEGIN
+WRITE_SHORT 0x107D 0x9090
+END
+
+PATCH_IF (Renderer = 1)
+BEGIN
+WRITE_BYTE 0x107D 0xEB
+END
+
+//double buffer:
+PATCH_IF (DoubleBuffer = 0 OR Windowed = 1)
+BEGIN
+WRITE_BYTE 0x10BD 0xEB
+END
+
+PATCH_IF (DoubleBuffer = 1 AND Windowed = 0)
+BEGIN
+WRITE_SHORT 0x10BD 0x9090
+END
+
+//show fps:
+PATCH_IF (ShowFPS = 1)
+BEGIN
+WRITE_SHORT 0x104C 0x9090
+END
+
+//disable sierra/troika videos:
+PATCH_IF (Logos = 0)
+BEGIN
+WRITE_BYTE 0x4810 0xC3
+END
+
+//disable main menu video:
+PATCH_IF (Intro = 0)
+BEGIN
+WRITE_SHORT 0x14A0 0x09EB
+END
+
+//scrolling fps:
+WRITE_BYTE 0x137C 0xEB
+WRITE_BYTE 0x1393 ScrollFPS
+
+//scrolling distance:
+WRITE_BYTE 0x13AC 0xEB
+WRITE_BYTE 0x13C3 ScrollDist
+

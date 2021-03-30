@@ -1,0 +1,249 @@
+//bottom panel pos:
+WRITE_LONG 0x1C63A0 WidthBonus //x
+WRITE_LONG 0x1C63A4 (Height - 159) //y
+
+//spells button pos:
+WRITE_LONG 0x1C6490 (WidthBonus + 649) //x
+WRITE_LONG 0x1C6494 (Height - 106) //y
+
+//spell charges description pos:
+WRITE_LONG 0x1C6E00 (WidthBonus + 355) //x
+WRITE_LONG 0x1C6E04 (Height - 94) //y
+
+//green circle button pos:
+WRITE_LONG 0x1C6D38 (WidthBonus + 545) //x
+WRITE_LONG 0x1C6D3C (Height - 94) //y
+
+//money/ammo icon pos:
+WRITE_LONG 0x1C6470 (WidthBonus +61) //x
+WRITE_LONG 0x1C6474 (Height - 91) //y
+
+//money/ammo counter pos:
+WRITE_LONG 0x1C6434 (WidthBonus + 104) //x
+WRITE_LONG 0x1C6438 (Height - 88) //y
+
+//description backdrop ui:
+WRITE_LONG 0x1C6D60 (WidthBonus + 211) //x
+WRITE_LONG 0x1C6D64 (Height - 97) //y
+
+//spell charges counter pos:
+WRITE_LONG 0x1C6448 (WidthBonus + 264) //x
+WRITE_LONG 0x1C644C (Height - 38) //y
+
+//skills menu description pos:
+WRITE_LONG 0x1C6D88 (WidthBonus + 208) //x
+WRITE_LONG 0x1C6D8C (Height - 33) //y
+
+//spells menu description pos:
+WRITE_LONG 0x1C6D74 (WidthBonus + 208) //x
+WRITE_LONG 0x1C6D78 (Height - 26) //y
+
+//health counter pos:
+WRITE_LONG 0x1C63F8 (WidthBonus + 15) //x
+WRITE_LONG 0x1C63FC (Height - 22) //y
+
+//fatigue counter pos:
+WRITE_LONG 0x1C640C (WidthBonus + 755) //x
+WRITE_LONG 0x1C6410 (Height - 22) //y
+
+//cyclic ui pos:
+PatchPointer = 0x1C6548
+PatchTimes = 10
+WHILE (PatchTimes >= 0) BEGIN
+READ_LONG (PatchPointer + 16*PatchTimes) PatchX
+WRITE_LONG (PatchPointer + 16*PatchTimes) (WidthBonus + PatchX)
+WRITE_LONG (PatchPointer + 16*PatchTimes + 4) (Height - 108)
+PatchTimes = PatchTimes - 1
+END
+
+//cyclic ui scroll up area:
+WRITE_LONG 0x1C6608 (WidthBonus + 210) //x
+WRITE_LONG 0x1C660C (Height - 96) //y
+
+//cyclic ui scroll down area:
+WRITE_LONG 0x1C65F8 (WidthBonus + 210) //x
+WRITE_LONG 0x1C65FC (Height - 55) //y
+
+//Unknown values necessary to move the bottom panel:
+WRITE_LONG 0x1C645C (WidthBonus + 15) //x
+WRITE_LONG 0x1C6460 (Height - 100) //y
+WRITE_LONG 0x1C6DC4 (WidthBonus + 211) //x
+WRITE_LONG 0x1C6DC8 (Height - 93) //y
+WRITE_LONG 0x1C6DD8 (WidthBonus + 262) //x
+WRITE_LONG 0x1C6DDC (Height - 92) //y
+WRITE_LONG 0x1C6D9C (WidthBonus + 291) //x
+WRITE_LONG 0x1C6DA0 (Height - 34) //y
+WRITE_LONG 0x1C6DB0 (WidthBonus + 208) //x
+WRITE_LONG 0x1C6DB4 (Height - 26) //y
+
+//chat window pos:
+WRITE_LONG 0x1C6DEC (WidthBonus + 220) //x
+WRITE_LONG 0x1C6DF0 (Height - 97) //y
+
+//health bar pos:
+WRITE_LONG 0x1C63D8 (WidthBonus + 14) //x
+WRITE_LONG 0x1C63DC (Height - 128) //y
+
+//fatigue bar pos:
+WRITE_LONG 0x1C63E8 (WidthBonus + 754) //x
+WRITE_LONG 0x1C63EC (Height - 127) //y
+
+//skills button pos:
+WRITE_LONG 0x1C6480 (WidthBonus + 693) //x
+WRITE_LONG 0x1C6484 (Height - 144) //y
+
+//combat button pos:
+WRITE_LONG 0x1C64A0 (WidthBonus + 86) //x
+WRITE_LONG 0x1C64A4 (Height - 143) //y
+
+//schematics button pos:
+WRITE_LONG 0x1C64B0 (WidthBonus + 693) //x
+WRITE_LONG 0x1C64B4 (Height - 61) //y
+
+//spell colleges' icons pos:
+PatchPointer = 0x1C6618
+PatchTimes = 15
+WHILE (PatchTimes >= 0) BEGIN
+READ_LONG (PatchPointer + 16*PatchTimes) PatchX
+WRITE_LONG (PatchPointer + 16*PatchTimes) (WidthBonus + PatchX)
+WRITE_LONG (PatchPointer + 16*PatchTimes + 4) (Height - 103)
+PatchTimes = PatchTimes - 1
+END
+
+//last action buttons pos:
+WRITE_LONG 0x1C6F40 (WidthBonus + 69) //x
+WRITE_LONG 0x1C6F44 (Height - 52) //y
+WRITE_LONG 0x1C6F50 (WidthBonus + 114) //x
+WRITE_LONG 0x1C6F54 (Height - 52) //y
+
+//note button pos:
+WRITE_LONG 0x1C6CD8 (WidthBonus + 213) //x
+WRITE_LONG 0x1C6CDC (Height - 91) //y
+
+//skull button pos:
+WRITE_LONG 0x1C6CE8 (WidthBonus + 213) //x
+WRITE_LONG 0x1C6CEC (Height - 64) //y
+
+//treasure button pos:
+WRITE_LONG 0x1C6CF8 (WidthBonus + 213) //x
+WRITE_LONG 0x1C6CFC (Height - 37) //y
+
+//red arrow button pos:
+WRITE_LONG 0x1C6D08 (WidthBonus + 364) //x
+WRITE_LONG 0x1C6D0C (Height - 52) //y
+
+//plus button pos:
+WRITE_LONG 0x1C6D18 (WidthBonus + 479) //x
+WRITE_LONG 0x1C6D1C (Height - 53) //y
+
+//minus button pos:
+WRITE_LONG 0x1C6D28 (WidthBonus + 479) //x
+WRITE_LONG 0x1C6D2C (Height - 41) //y
+
+//red cross button pos:
+WRITE_LONG 0x1C6D48 (WidthBonus + 545) //x
+WRITE_LONG 0x1C6D4C (Height - 43) //y
+
+//big green circle button pos:
+WRITE_LONG 0x1C6CC8 (WidthBonus + 281) //x
+WRITE_LONG 0x1C6CCC (Height - 51) //y
+
+//yellow arrow button pos:
+WRITE_LONG 0x1C6CA8 (WidthBonus + 396) //x
+WRITE_LONG 0x1C6CAC (Height - 50) //y
+
+//another big red cross button pos:
+WRITE_LONG 0x1C6CB8 (WidthBonus + 511) //x
+WRITE_LONG 0x1C6CBC (Height - 50) //y
+
+//magick weapon button pos:
+WRITE_LONG 0x1C6F68 (WidthBonus + 161) //x
+WRITE_LONG 0x1C6F6C (Height - 157) //y
+
+//AP bar pos:
+WRITE_LONG 0x16EDA3 (WidthBonus + 222) //x
+WRITE_LONG 0x16EDA8 (Height - 189) //y
+
+//quick slots mouse on pos:
+WRITE_LONG 0x17E47A (Height - 160) //y
+
+//small red button at qs bar pos:
+WRITE_LONG 0x1C6F30 (WidthBonus + 616) //x
+WRITE_LONG 0x1C6F34 (Height - 145) //y
+
+//small red cross button pos:
+WRITE_LONG 0x1708C8 (WidthBonus + 574) //x
+WRITE_LONG 0x1708E1 (Height - 94) //y
+
+//spell icons pos:
+PatchPointer = 0x1C6718
+PatchTimes = 79
+WHILE (PatchTimes >= 0) BEGIN
+READ_LONG (PatchPointer + 16*PatchTimes) PatchX
+WRITE_LONG (PatchPointer + 16*PatchTimes) (WidthBonus + PatchX)
+WRITE_LONG (PatchPointer + 16*PatchTimes + 4) (Height - 72)
+PatchTimes = PatchTimes - 1
+END
+
+//magick weapon's spell icons pos:
+WRITE_LONG 0x1C6C18 (WidthBonus + 353) //x
+WRITE_LONG 0x1C6C1C (Height - 58) //y
+WRITE_LONG 0x1C6C28 (WidthBonus + 402) //x
+WRITE_LONG 0x1C6C2C (Height - 58) //y
+WRITE_LONG 0x1C6C38 (WidthBonus + 451) //x
+WRITE_LONG 0x1C6C3C (Height - 58) //y
+WRITE_LONG 0x1C6C48 (WidthBonus + 501) //x
+WRITE_LONG 0x1C6C4C (Height - 58) //y
+WRITE_LONG 0x1C6C58 (WidthBonus + 550) //x
+WRITE_LONG 0x1C6C5C (Height - 58) //y
+
+//skill icons pos:
+WRITE_LONG 0x1C6C68 (WidthBonus + 288) //x
+WRITE_LONG 0x1C6C6C (Height - 86) //y
+WRITE_LONG 0x1C6C78 (WidthBonus + 351) //x
+WRITE_LONG 0x1C6C7C (Height - 86) //y
+WRITE_LONG 0x1C6C88 (WidthBonus + 414) //x
+WRITE_LONG 0x1C6C8C (Height - 86) //y
+WRITE_LONG 0x1C6C98 (WidthBonus + 477) //x
+WRITE_LONG 0x1C6C9C (Height - 86) //y
+
+//spells/skills menus mouse over fixes:
+SET searchlength = 0
+SET replacelength = 20
+SPRINT replacepattern ~12345678901234567890~
+SPRINT replacebytes ~3D 61 02 00 00 0F 8C A7 00 00 00 8B 5B 08 81 FB 7A 00 00 00~
+LAUNCH_PATCH_MACRO Q_Pattern_Maker
+WRITE_EVALUATED_ASCII 0x14CA1E "%replacepattern%" (%replacelength%)
+
+//spells/skills menus mouse over:
+WRITE_LONG 0x14CA1F (Height - 159)
+WRITE_LONG 0x14CA2E (WidthBonus + 10)
+WRITE_LONG 0x14CA3A (WidthBonus + 790)
+WRITE_LONG 0x14CA45 (Height - 10)
+
+//quick slots pos:
+PatchPointer = 0x1CB4BC
+PatchTimes = 9
+WHILE (PatchTimes >= 0) BEGIN
+READ_LONG (PatchPointer + 4*PatchTimes) PatchX
+WRITE_LONG (PatchPointer + 4*PatchTimes) (WidthBonus + PatchX)
+PatchTimes = PatchTimes - 1
+END
+
+//kick/ban buttons desc:
+WRITE_LONG 0x15138C (WidthBonus + 440) //x
+WRITE_LONG 0x15139E (Height - 76) //y
+
+//kick/ban pos check:
+WRITE_LONG 0x150307 (Height - 76) //y
+
+//kick button:
+WRITE_LONG 0x1701AD (WidthBonus + 286) //x
+WRITE_LONG 0x1701C5 (Height - 76) //y
+
+//ban button:
+WRITE_LONG 0x170210 (WidthBonus + 455) //x
+WRITE_LONG 0x170217 (Height - 76) //y
+
+//bull's eye pos fix:
+WRITE_BYTE 0x154864 0x3B

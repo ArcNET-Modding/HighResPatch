@@ -1,0 +1,33 @@
+//disable multiplayer:
+//check if already disabled:
+READ_LONG 0x1C40B4 MMCheck
+READ_LONG 0x1C40E4 MMText1
+READ_LONG 0x1C4114 MMText2
+READ_LONG 0x1C4144 MMText3
+MMCheck = MMText1 - MMCheck
+
+PATCH_IF (Multiplayer = 0 AND MMCheck = 50)
+BEGIN
+//disable main menu option:
+WRITE_LONG 0x1C40B4 "-50000"
+WRITE_LONG 0x1C40E4 (MMText1 - 50)
+WRITE_LONG 0x1C4114 (MMText2 - 50)
+WRITE_LONG 0x1C4144 (MMText3 - 50)
+//disable character export (X key in charedit):
+WRITE_SHORT 0x15ADCC 0xE990
+END
+
+//save character confirm pop up pos:
+WRITE_LONG 0x17D039 (WidthBonus + 237) //x
+WRITE_LONG 0x17D041 (HeightBonus2 + 232) //y
+
+//waiting for response from won server pop up pos:
+WRITE_LONG 0x1499D6 (WidthBonus + 237) //x
+WRITE_LONG 0x1499DE (HeightBonus2 + 232) //y
+
+//couldn't establish connection pop up pos:
+WRITE_LONG 0x149177 (WidthBonus + 237) //x
+WRITE_LONG 0x14917F (HeightBonus2 + 232) //y
+
+//multiplayer control panel:
+WRITE_LONG 0x170733 (WidthBonus + 566) //x

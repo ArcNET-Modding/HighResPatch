@@ -1,0 +1,77 @@
+//compact UI check and dialog window pos:
+WRITE_LONG 0xC97E1 0x64C67C
+WRITE_LONG 0xC97E6 1
+WRITE_LONG 0xC97F2 (Height - 180) //y pos in Compact UI
+WRITE_SHORT 0xC97F7 0x05C7
+WRITE_LONG 0xC97F9 0x5FF4FC
+WRITE_LONG 0xC97FD (Height - 260) //y pos
+
+//dialog font size:
+
+PATCH_IF (DialogFont = 1)
+BEGIN
+
+//font:
+
+//PC lines:
+WRITE_LONG 0xC93DE 230
+
+//NPC lines:
+WRITE_LONG 0xD5CCF 230
+
+//NPC response window:
+WRITE_LONG 0xD5C7E 235 //width, orig: 200
+WRITE_LONG 0x1B8EB8 235 //controls text stretching
+WRITE_LONG 0x1B8EBC 235 //height
+
+//dialog window:
+
+//width:
+WRITE_LONG 0xC97BE "-465"
+WRITE_LONG 0xC97C8 465 //orig: 400
+
+//height:
+WRITE_LONG 0xC92F7 115 //orig: 100
+WRITE_LONG 0xC97D5 115
+
+//dialog window pos:
+WRITE_LONG 0xC97FD (Height - 160 - 115) //y
+
+//dialog window pos in compact ui:
+WRITE_LONG 0xC97F2 (Height - 80 - 115) //y
+
+END
+
+PATCH_IF (DialogFont = 2)
+BEGIN
+
+//font:
+
+//PC lines:
+WRITE_LONG 0xC93DE 133
+
+//NPC lines:
+WRITE_LONG 0xD5CCF 133
+
+//NPC response window:
+WRITE_LONG 0xD5C7E 300 //width, orig: 200
+WRITE_LONG 0x1B8EB8 300 //controls text stretching
+WRITE_LONG 0x1B8EBC 300 //height
+
+//dialog window:
+
+//width:
+WRITE_LONG 0xC97BE "-600"
+WRITE_LONG 0xC97C8 600 //orig: 400
+
+//height:
+WRITE_LONG 0xC92F7 150 //orig: 100
+WRITE_LONG 0xC97D5 150
+
+//dialog window pos:
+WRITE_LONG 0xC97FD (Height - 160 - 150) //y
+
+//dialog window pos in compact ui:
+WRITE_LONG 0xC97F2 (Height - 80 - 150) //y
+
+END

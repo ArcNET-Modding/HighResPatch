@@ -1,0 +1,28 @@
+PATCH_IF (WidthBonus >= 67)
+BEGIN
+
+//follower portraits hide button pos:
+WRITE_LONG 0x1CA3C4 (Height - 13) //y
+
+//follower portraits scroll up button pos:
+WRITE_LONG 0x1CA3D4 (Height - 26) //y
+
+//follower portraits scroll down button pos:
+WRITE_LONG 0x1CA3E4 (Height - 26) //y
+
+END
+ELSE BEGIN
+
+//follower portraits hide button pos:
+WRITE_LONG 0x1CA3C0 WidthBonus //x
+WRITE_LONG 0x1CA3C4 (Height - 172) //y
+
+//follower portraits scroll up button pos:
+WRITE_LONG 0x1CA3D0 WidthBonus //x
+WRITE_LONG 0x1CA3D4 (Height - 185) //y
+
+//follower portraits scroll down button pos:
+WRITE_LONG 0x1CA3E0 (WidthBonus + 33) //x
+WRITE_LONG 0x1CA3E4 (Height - 185) //y
+
+END

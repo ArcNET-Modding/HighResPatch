@@ -1,0 +1,81 @@
+//Arcanum High Resolution Patch, version 1.5.
+//Drog Black Tooth, 2017.
+
+BACKUP ~Backup~
+AUTHOR ~Drog Black Tooth~
+VERSION ~1.5~
+
+BEGIN ~Arcanum High Resolution Patch~
+
+//check Arcanum.exe version
+PRINT ~Checking version...~
+COPY ~../Arcanum.exe~ ~../Arcanum.exe~
+READ_BYTE 0x45E0 offset_0x45E0
+READ_BYTE 0x45E2 offset_0x45E2
+READ_BYTE 0x45E4 offset_0x45E4
+READ_BYTE 0x45E6 offset_0x45E6
+
+PATCH_IF (offset_0x45E6 = 1 AND offset_0x45E4 = 0 AND offset_0x45E2 = 7 AND offset_0x45E0 = 4)
+ BEGIN
+  PATCH_PRINT ~Arcanum.exe version 1.0.7.4 (English) detected.~
+ END
+ ELSE
+ BEGIN
+  INNER_ACTION BEGIN FAIL ~Arcanum.exe version 1.0.7.4 (English) required.~
+ END
+END
+
+//engine patches
+INCLUDE ~Files/Scripts/Base.tph~
+
+//sound positioning fixes
+MKDIR ~../data/sound~
+COPY ~Files/soundparams.mes~ ~../data/sound/soundparams.mes~
+SET SoundFull = Width / 16
+SET SoundZero = Width
+SET SoundCentered = Width / 8
+SET SoundHard = Width / 2
+REPLACE_TEXTUALLY ~{1}{50}~ ~{1}{%SoundFull%}~
+REPLACE_TEXTUALLY ~{2}{800}~ ~{2}{%SoundZero%}~
+REPLACE_TEXTUALLY ~{3}{100}~ ~{3}{%SoundCentered%}~
+REPLACE_TEXTUALLY ~{4}{400}~ ~{4}{%SoundHard%}~
+
+//map patches
+//shop map
+MKDIR ~../modules/Arcanum/maps/ShopMap~
+COPY ~Files/maps/ShopMap~ ~../modules/Arcanum/maps/ShopMap~
+MKDIR ~../modules/Vormantown/maps/ShopMap~
+COPY ~Files/maps/ShopMap~ ~../modules/Vormantown/maps/ShopMap~
+//half ogre captain fix
+MKDIR ~../modules/Arcanum/maps/Arcanum1-024-fixed~
+COPY ~Files/maps/Arcanum1-024-fixed~ ~../modules/Arcanum/maps/Arcanum1-024-fixed~
+//dirt background
+SPRINT DirtPath "Files/maps/0_dirt.sec"
+PATCH_IF (MainMenuArt = 2) BEGIN SPRINT DirtPath "../modules/Arcanum/maps/ShopMap/0.sec" END
+COPY ~Files/maps/0_dirt.sec~ ~%DirtPath%~
+PATCH_IF (MainMenuArt = 2) BEGIN SPRINT DirtPath "../modules/Vormantown/maps/ShopMap/0.sec" END
+COPY ~Files/maps/0_dirt.sec~ ~%DirtPath%~
+
+//high resolution graphics base files
+COPY ~Files/ArcanumZHighRes.dat~ ~../ArcanumZHighRes.dat~
+
+//borders
+SPRINT BordersPath "Files"
+PATCH_IF (Borders = 1) BEGIN SPRINT BordersPath ".." END
+
+COPY ~Files/ArcanumZHighResBorders.dat~ ~%BordersPath%/ArcanumZHighResBorders.dat~
+
+//language patches, 1 = German, 2 = French, 3 = Russian
+SPRINT BordersPath "Files"
+PATCH_IF (Borders = 1 AND Language >= 1) BEGIN SPRINT BordersPath ".." END
+SPRINT BordersName "DE"
+PATCH_IF (Language = 2) BEGIN SPRINT BordersName "FR" END
+PATCH_IF (Language = 3) BEGIN SPRINT BordersName "RU" END
+
+COPY ~Files/ArcanumZHighResBorders%BordersName%.dat~ ~%BordersPath%/ArcanumZHighResBorders%BordersName%.dat~
+
+//ddraw wrapper
+SPRINT DDrawPath "Files"
+PATCH_IF (DDrawWrapper = 1) BEGIN SPRINT DDrawPath ".." END
+
+COPY ~Files/ddraw.dll~ ~%DDrawPath%/ddraw.dll~

@@ -1,0 +1,19 @@
+//scripts looping/vicinity fixes:
+WRITE_BYTE 0x40FDE 0x04
+
+SET searchlength = 0
+SET replacelength = 29
+SPRINT replacepattern ~12345678901234567890123456789~
+SPRINT replacebytes ~83 EC 78 8B 0D 24 2F 5E 00 8D 44 24 38 50 51 E8 B6 BE 0D 00 EB B8 C7 44 24 50 90 01 00~
+LAUNCH_PATCH_MACRO Q_Pattern_Maker
+WRITE_EVALUATED_ASCII 0x40FE6 "%replacepattern%" (%replacelength%)
+
+SET searchlength = 0
+SET replacelength = 10
+SPRINT replacepattern ~1234567890~
+SPRINT replacebytes ~C7 44 24 4C 20 03 00 00 EB 3E~
+LAUNCH_PATCH_MACRO Q_Pattern_Maker
+WRITE_EVALUATED_ASCII 0x40FB4 "%replacepattern%" (%replacelength%)
+
+WRITE_LONG 0x40FB8 LoopCheckWidth
+WRITE_LONG 0x41000 LoopCheckHeight

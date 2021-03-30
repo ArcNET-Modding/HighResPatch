@@ -1,0 +1,124 @@
+Multiplayer = 0
+
+MMBack = 158 + MainMenuArt
+
+HDWidth = 3840
+HDHeight = 2160
+HDWidthBonus = (HDWidth - Width) / 2
+HDHeightBonus = (HDHeight - Height) / 2
+
+WRITE_LONG 0x1C3638 (0 - HDWidthBonus) //x
+WRITE_LONG 0x1C363C (0 - HDHeightBonus) //y
+WRITE_LONG 0x1C3640 HDWidth //w
+WRITE_LONG 0x1C3644 HDHeight //h
+WRITE_LONG 0x1463B1 HDHeight //height check fix
+
+//text fixes:
+HDWidthBonus2 = HDWidthBonus + WidthBonus
+HDHeightBonus2 = HDHeightBonus + HeightBonus2
+
+PatchPointer = 0x1C36E0 //in-game
+PatchTimes = 7
+WHILE (PatchTimes >= 0) BEGIN
+READ_LONG (PatchPointer + 48*PatchTimes) PatchX
+WRITE_LONG (PatchPointer + 48*PatchTimes) (HDWidthBonus2 + PatchX)
+READ_LONG (PatchPointer + 48*PatchTimes + 4) PatchY
+WRITE_LONG (PatchPointer + 48*PatchTimes + 4) (HDHeightBonus2 + PatchY)
+PatchTimes = PatchTimes - 1
+END
+
+PatchPointer = 0x1C3920 //multiplayer
+PatchTimes = 3
+WHILE (PatchTimes >= 0) BEGIN
+READ_LONG (PatchPointer + 48*PatchTimes) PatchX
+WRITE_LONG (PatchPointer + 48*PatchTimes) (HDWidthBonus2 + PatchX)
+READ_LONG (PatchPointer + 48*PatchTimes + 4) PatchY
+WRITE_LONG (PatchPointer + 48*PatchTimes + 4) (HDHeightBonus2 + PatchY)
+PatchTimes = PatchTimes - 1
+END
+
+PatchPointer = 0x1C4080 //main menu
+PatchTimes = 4
+WHILE (PatchTimes >= 0) BEGIN
+READ_LONG (PatchPointer + 48*PatchTimes) PatchX
+WRITE_LONG (PatchPointer + 48*PatchTimes) (HDWidthBonus2 + PatchX)
+READ_LONG (PatchPointer + 48*PatchTimes + 4) PatchY
+WRITE_LONG (PatchPointer + 48*PatchTimes + 4) (HDHeightBonus2 + PatchY)
+PatchTimes = PatchTimes - 1
+END
+
+PatchPointer = 0x1C4998 //single player
+PatchTimes = 4
+WHILE (PatchTimes >= 0) BEGIN
+READ_LONG (PatchPointer + 48*PatchTimes) PatchX
+WRITE_LONG (PatchPointer + 48*PatchTimes) (HDWidthBonus2 + PatchX)
+READ_LONG (PatchPointer + 48*PatchTimes + 4) PatchY
+WRITE_LONG (PatchPointer + 48*PatchTimes + 4) (HDHeightBonus2 + PatchY)
+PatchTimes = PatchTimes - 1
+END
+
+PatchPointer = 0x1C4B20 //new game
+PatchTimes = 2
+WHILE (PatchTimes >= 0) BEGIN
+READ_LONG (PatchPointer + 48*PatchTimes) PatchX
+WRITE_LONG (PatchPointer + 48*PatchTimes) (HDWidthBonus2 + PatchX)
+READ_LONG (PatchPointer + 48*PatchTimes + 4) PatchY
+WRITE_LONG (PatchPointer + 48*PatchTimes + 4) (HDHeightBonus2 + PatchY)
+PatchTimes = PatchTimes - 1
+END
+
+//PatchPointer = 0x1C3860 //???
+//PatchTimes = 3
+
+//PatchPointer = 0x1C5818 //???
+//PatchTimes = 3
+
+//load save game:
+WRITE_LONG 0x1C4900 157 //art
+READ_LONG 0x144526 PatchX
+READ_LONG 0x14452E PatchY
+WRITE_LONG 0x144526 (HDWidthBonus2 + PatchX) //x
+WRITE_LONG 0x14452E (HDHeightBonus2 + PatchY) //y
+
+//game reset black screen art:
+WRITE_LONG 0x1C3AB0 157
+
+//version info pos:
+WRITE_LONG 0x141AD1 HDWidthBonus + 10 //x
+WRITE_LONG 0x141AD9 HDHeight - HDHeightBonus - 20 //y
+
+//options:
+PATCH_IF (Options = 0)
+BEGIN
+
+//options background art:
+WRITE_LONG 0x1C44A0 161
+PATCH_IF (MainMenuArt = 2) BEGIN WRITE_LONG 0x1C44A0 163 END
+
+//options lens pos:
+WRITE_LONG 0x1C4490 HDWidthBonus2 + 84 //x
+WRITE_LONG 0x1C4494 HDHeightBonus2 + 67 //y
+
+//menu items pos:
+PatchPointer = 0x1CCD38
+PatchTimes = 7
+WHILE (PatchTimes >= 0) BEGIN
+READ_LONG (PatchPointer + 4*PatchTimes) PatchX
+WRITE_LONG (PatchPointer + 4*PatchTimes) (HDWidthBonus2 + PatchX)
+READ_LONG (PatchPointer + 4*PatchTimes + 32) PatchY
+WRITE_LONG (PatchPointer + 4*PatchTimes + 32) (HDHeightBonus2 + PatchY)
+PatchTimes = PatchTimes - 1
+END
+
+//text pos:
+PatchPointer = 0x1C43D0
+PatchTimes = 3
+WHILE (PatchTimes >= 0) BEGIN
+READ_LONG (PatchPointer + 48*PatchTimes) PatchX
+WRITE_LONG (PatchPointer + 48*PatchTimes) (HDWidthBonus2 + PatchX)
+READ_LONG (PatchPointer + 48*PatchTimes + 4) PatchY
+WRITE_LONG (PatchPointer + 48*PatchTimes + 4) (HDHeightBonus2 + PatchY)
+PatchTimes = PatchTimes - 1
+END
+
+END

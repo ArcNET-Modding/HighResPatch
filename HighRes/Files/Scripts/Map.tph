@@ -1,0 +1,48 @@
+//waypoint fixes:
+SET searchlength = 0
+SET replacelength = 39
+SPRINT replacepattern ~123456789012345678901234567890123456789~
+SPRINT replacebytes ~B9 00 00 00 00 2B D1 8B 4C 24 10 89 11 8B 50 38 8B 70 08 B8 29 00 00 00 2B D6 5E 2B D0 8B 44 24 08 03 D0 89 51 04 C3~
+LAUNCH_PATCH_MACRO Q_Pattern_Maker
+WRITE_EVALUATED_ASCII 0x163AE2 "%replacepattern%" (%replacelength%)
+
+SET searchlength = 0
+SET replacelength = 39
+SPRINT replacepattern ~123456789012345678901234567890123456789~
+SPRINT replacebytes ~B9 00 00 00 00 2B D1 8B 4C 24 10 89 11 8B 50 38 8B 70 08 B8 29 00 00 00 2B D6 5E 2B D0 8B 44 24 08 03 D0 89 51 04 C3~
+LAUNCH_PATCH_MACRO Q_Pattern_Maker
+WRITE_EVALUATED_ASCII 0x163C22 "%replacepattern%" (%replacelength%)
+
+//wmap waypoints:
+WRITE_LONG 0x163AE3 WidthBonus //x
+WRITE_LONG 0x163AF6 (HeightBonus + 41) //y
+
+//townmap waypoints:
+WRITE_LONG 0x163C23 WidthBonus //x
+WRITE_LONG 0x163C36 (HeightBonus + 41) //y
+
+//mouse area:
+//wmap:
+WRITE_LONG 0x1C923C (WidthBonus + 150) //x
+WRITE_LONG 0x1C9240 (HeightBonus + 52) //y
+
+//wmap-zoomed:
+WRITE_LONG 0x1C94FC (WidthBonus + 218) //x
+WRITE_LONG 0x1C9500 (HeightBonus + 52) //y
+
+//townmap:
+WRITE_LONG 0x1C97BC (WidthBonus + 150) //x
+WRITE_LONG 0x1C97C0 (HeightBonus + 52) //y
+
+//wmap-zoomed mouse over fixes:
+WRITE_BYTE 0x163B27 0x3C
+WRITE_BYTE 0x163BD4 0x08
+
+//wmap nav button scrolling:
+WRITE_LONG 0x1C9A88 (WidthBonus + 391) //x
+WRITE_LONG 0x1C9A8C (HeightBonus + 403) //y
+
+PATCH_IF (MapUI = 1)
+BEGIN
+PATCH_INCLUDE ~Files/Scripts/MapBig.tph~
+END
