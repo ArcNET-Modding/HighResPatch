@@ -1,9 +1,9 @@
-//Arcanum High Resolution Patch, version 1.5.
+//Arcanum High Resolution Patch, version 1.5.1.
 //Drog Black Tooth, 2017.
 
 BACKUP ~Backup~
 AUTHOR ~Drog Black Tooth~
-VERSION ~1.5~
+VERSION ~1.5.1~
 
 BEGIN ~Arcanum High Resolution Patch~
 
@@ -65,17 +65,16 @@ PATCH_IF (Borders = 1) BEGIN SPRINT BordersPath ".." END
 
 COPY ~Files/ArcanumZHighResBorders.dat~ ~%BordersPath%/ArcanumZHighResBorders.dat~
 
-//language patches, 1 = German, 2 = French, 3 = Russian
-SPRINT BordersPath "Files"
-PATCH_IF (Borders = 1 AND Language >= 1) BEGIN SPRINT BordersPath ".." END
-SPRINT BordersName "DE"
-PATCH_IF (Language = 2) BEGIN SPRINT BordersName "FR" END
-PATCH_IF (Language = 3) BEGIN SPRINT BordersName "RU" END
-
-COPY ~Files/ArcanumZHighResBorders%BordersName%.dat~ ~%BordersPath%/ArcanumZHighResBorders%BordersName%.dat~
-
 //ddraw wrapper
 SPRINT DDrawPath "Files"
 PATCH_IF (DDrawWrapper = 1) BEGIN SPRINT DDrawPath ".." END
 
 COPY ~Files/ddraw.dll~ ~%DDrawPath%/ddraw.dll~
+
+//dxwrapper
+SPRINT DxWrapperPath "Files/DxWrapper"
+PATCH_IF (DxWrapper = 1) BEGIN SPRINT DxWrapperPath ".." END
+
+COPY ~Files/DxWrapper/ddraw.dll~ ~%DxWrapperPath%/ddraw.dll~
+COPY ~Files/DxWrapper/dxwrapper.dll~ ~%DxWrapperPath%/dxwrapper.dll~
+COPY ~Files/DxWrapper/dxwrapper.ini~ ~%DxWrapperPath%/dxwrapper.ini~
