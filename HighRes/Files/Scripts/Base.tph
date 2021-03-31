@@ -29,6 +29,7 @@ HeightBonus2 = (Height - 600) / 2
 //resolution:
 WRITE_LONG 0x1236 Width
 WRITE_LONG 0x123E Height
+WRITE_LONG 0x1246 BitDepth
 
 //mouse scrolling:
 WRITE_LONG 0x1FA2 (Width - 1) //right border
